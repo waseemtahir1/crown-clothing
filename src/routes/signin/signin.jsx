@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useState } from "react";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +15,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import GoogleIcon from "@mui/icons-material/Google";
-import { signInWithGooglePopup } from "../../utils/firebase/firebaseutils";
+import {
+  signInWithGooglePopup,
+  createUserDocumentfromAuth,
+} from "../../utils/firebase/firebaseutils";
 
 function Copyright(props) {
   return (
@@ -46,8 +51,13 @@ function SignIn() {
   };
 
   const logGoogleUser = async () => {
-    const user = await signInWithGooglePopup();
-    console.log(user);
+    const response = await signInWithGooglePopup();
+    console.log(response);
+    console.log(response.user);
+    const userDocRef = await createUserDocumentfromAuth(response.user);
+    console.log(response.user.displayName);
+    console.log(response.user.email);
+    console.log(response.user.photoURL);
   };
 
   return (
@@ -64,6 +74,7 @@ function SignIn() {
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
+            <img src="{photoURL}" alt="" />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
