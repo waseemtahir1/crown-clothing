@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import GoogleIcon from "@mui/icons-material/Google";
+import { signInWithGooglePopup } from "../../utils/firebase/firebaseutils";
 
 function Copyright(props) {
   return (
@@ -41,6 +43,11 @@ function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+
+  const logGoogleUser = async () => {
+    const user = await signInWithGooglePopup();
+    console.log(user);
   };
 
   return (
@@ -91,14 +98,25 @@ function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+            <Box>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2, mx: 1 }}
+              >
+                Sign In
+              </Button>
+
+              <Button
+                onClick={logGoogleUser}
+                variant="contained"
+                startIcon={<GoogleIcon />}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In with Google
+              </Button>
+            </Box>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
