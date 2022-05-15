@@ -68,9 +68,9 @@ const NavigationBar = () => {
               Contact Us
             </Link>
           </nav>
-          <Button variant="outlined" color="secondary">
+          <Link variant="outlined" color="secondary">
             Login
-          </Button>
+          </Link>
           <Link href="/shoppingcart">
             <IconButton aria-label="cart" sx={{ my: 1, mx: 2 }} color="default">
               <StyledBadge badgeContent={4} color="secondary">
