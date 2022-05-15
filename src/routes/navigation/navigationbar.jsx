@@ -68,7 +68,7 @@ const NavigationBar = () => {
               Contact Us
             </Link>
           </nav>
-          <Link variant="outlined" color="secondary">
+          <Link variant="outlined" color="secondary" href="/signin">
             Login
           </Link>
           <Link href="/shoppingcart">

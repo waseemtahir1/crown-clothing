@@ -8,6 +8,7 @@ import Home from "./routes/home/home.component.jsx";
 import NavigationBar from "./routes/navigation/navigationbar.jsx";
 import Privacy from "./routes/privacy/privacy.jsx";
 import ShopPage from "./routes/shop/shoppage.jsx";
+import SignIn from "./routes/signin/signin.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/signin" element={<SignIn />} />
         </Route>
       </Routes>
     </div>
