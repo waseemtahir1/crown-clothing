@@ -10,10 +10,11 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import {
   signInWithGooglePopup,
@@ -50,14 +51,17 @@ function SignIn() {
     });
   };
 
-  const logGoogleUser = async () => {
+  const { photoURL, setPhotoURL } = useState("");
+
+  const SignInWithGoogleUser = async () => {
     const response = await signInWithGooglePopup();
-    console.log(response);
-    console.log(response.user);
-    const userDocRef = await createUserDocumentfromAuth(response.user);
-    console.log(response.user.displayName);
-    console.log(response.user.email);
-    console.log(response.user.photoURL);
+    // console.log(response);
+    // console.log(response.user);
+    await createUserDocumentfromAuth(response.user);
+    // console.log(response.user.displayName);
+    // console.log(response.user.email);
+    // console.log(response.user.photoURL);
+    // setPhotoURL(response.user.photoURL);
   };
 
   return (
@@ -119,7 +123,7 @@ function SignIn() {
               </Button>
 
               <Button
-                onClick={logGoogleUser}
+                onClick={SignInWithGoogleUser}
                 variant="contained"
                 startIcon={<GoogleIcon />}
                 sx={{ mt: 3, mb: 2 }}
@@ -135,7 +139,7 @@ function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

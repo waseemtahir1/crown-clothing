@@ -9,6 +9,7 @@ import NavigationBar from "./routes/navigation/navigationbar.jsx";
 import Privacy from "./routes/privacy/privacy.jsx";
 import ShopPage from "./routes/shop/shoppage.jsx";
 import SignIn from "./routes/signin/signin.jsx";
+import SignUp from "./routes/signup/signup.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Route>
       </Routes>
     </div>
