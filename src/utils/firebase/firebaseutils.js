@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+import { async } from "@firebase/util";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -81,6 +82,8 @@ export const userSignInWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedLister = (callback) =>
   onAuthStateChanged(auth, callback);

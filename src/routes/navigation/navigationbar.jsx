@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import React from "react";
+import React, { useContext } from "react";
 import {
   AppBar,
   Button,
@@ -9,11 +9,13 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+
 import { styled } from "@mui/material/styles";
-
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
 import { ReactComponent as Crown } from "../../assets/crown.svg";
+
+import { UserContext } from "../../contexts/user.context";
+import { signOutUser } from "../../utils/firebase/firebaseutils";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -25,6 +27,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const NavigationBar = () => {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <div>
       <AppBar
@@ -68,9 +72,22 @@ const NavigationBar = () => {
               Contact Us
             </Link>
           </nav>
-          <Link variant="outlined" color="secondary" href="/signin">
-            Login
-          </Link>
+
+          {currentUser ? (
+            <Link
+              variant="outlined"
+              color="secondary"
+              href="/signin"
+              onClick={signOutUser}
+            >
+              Sign Out
+            </Link>
+          ) : (
+            <Link variant="outlined" color="secondary" href="/signin">
+              Sign In
+            </Link>
+          )}
+
           <Link href="/shoppingcart">
             <IconButton aria-label="cart" sx={{ my: 1, mx: 2 }} color="default">
               <StyledBadge badgeContent={4} color="secondary">

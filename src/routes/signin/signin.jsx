@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -24,7 +24,7 @@ import {
 
 import { UserContext } from "../../contexts/user.context";
 
-import { Alert, AlertTitle, Snackbar, Stack } from "@mui/material";
+import { Alert, AlertTitle, Snackbar } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -50,14 +50,11 @@ const defaultSnackState = {
   open: false,
   vertical: "bottom",
   horizontal: "center",
-  horizontal1: "left",
   myErrorMessage: "",
   variant: "",
 };
 
 const SignIn = () => {
-  const { setCurrentUser } = useContext(UserContext);
-
   const [snackstate, setSnackState] = useState({
     defaultSnackState,
   });
@@ -70,9 +67,6 @@ const SignIn = () => {
     autoHideDuration,
     variant,
   } = snackstate;
-
-  const WrappedSnack = (props) => <Snackbar {...props} />;
-  WrappedSnack.muiName = Snackbar.muiName;
 
   const handleClose = () => {
     setSnackState({
@@ -98,14 +92,12 @@ const SignIn = () => {
         // Signed in
         const user = userCredential.user;
 
-        setCurrentUser(user);
         setSnackState({
           open: true,
-          myErrorMessage: "User Successfully Sign In!!!",
+          myErrorMessage: "Welcome back " + user.displayName,
           autoHideDuration: 3000,
           horizontal: "center",
           vertical: "bottom",
-          horizontal1: "left",
           variant: "success",
         });
         // ...
@@ -121,7 +113,6 @@ const SignIn = () => {
           autoHideDuration: 3000,
           horizontal: "center",
           vertical: "bottom",
-          horizontal1: "left",
           variant: "error",
         });
       });
@@ -129,17 +120,21 @@ const SignIn = () => {
 
   const SignInWithGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
-    setCurrentUser(user);
 
-    await createUserDocumentfromAuth(user);
+    let welcomePerson = "";
+
+    if (user.displayName.length < 0) {
+      welcomePerson = user.email;
+    } else {
+      welcomePerson = user.displayName;
+    }
 
     setSnackState({
       open: true,
-      myErrorMessage: "User Login Successfully",
+      myErrorMessage: "Welcome back " + welcomePerson,
       autoHideDuration: 3000,
       horizontal: "center",
       vertical: "bottom",
-      horizontal1: "left",
       variant: "success",
     });
   };
