@@ -52,21 +52,24 @@ const defaultSnackState = {
   horizontal: "center",
   horizontal1: "left",
   myErrorMessage: "",
+  variant: "",
 };
 
 const SignIn = () => {
   const { setCurrentUser } = useContext(UserContext);
 
   const [snackstate, setSnackState] = useState({
-    open: false,
-    vertical: "bottom",
-    horizontal: "center",
-    myErrorMessage: "",
-    autoHideDuration: 3000,
+    defaultSnackState,
   });
 
-  const { open, vertical, horizontal, myErrorMessage, autoHideDuration } =
-    snackstate;
+  const {
+    open,
+    vertical,
+    horizontal,
+    myErrorMessage,
+    autoHideDuration,
+    variant,
+  } = snackstate;
 
   const WrappedSnack = (props) => <Snackbar {...props} />;
   WrappedSnack.muiName = Snackbar.muiName;
@@ -79,6 +82,7 @@ const SignIn = () => {
       myErrorMessage: "",
       autoHideDuration: 3000,
       horizontal1: "left",
+      variant: "",
     });
   };
   const handleSubmit = (event) => {
@@ -93,9 +97,17 @@ const SignIn = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
-        setCurrentUser(user);
 
+        setCurrentUser(user);
+        setSnackState({
+          open: true,
+          myErrorMessage: "User Successfully Sign In!!!",
+          autoHideDuration: 3000,
+          horizontal: "center",
+          vertical: "bottom",
+          horizontal1: "left",
+          variant: "success",
+        });
         // ...
       })
       .catch((error) => {
@@ -103,78 +115,33 @@ const SignIn = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        // console.log(errorCode);
-        // console.log(errorMessage);
-
         setSnackState({
           open: true,
-          myErrorMessage: errorMessage,
+          myErrorMessage: errorCode + " : " + errorMessage,
           autoHideDuration: 3000,
           horizontal: "center",
           vertical: "bottom",
           horizontal1: "left",
+          variant: "error",
         });
       });
-
-    // try {
-
-    //   const { response } = userSignInWithEmailAndPassword(email, password);
-
-    //   console.log(response);
-    //   alert("getting error");
-    // } catch (error) {
-    //   alert(error.code);
-    //   alert(error.message);
-    //   console.log(error);
-
-    //   if ((error.code = "auth/user-not-found")) {
-    //     alert("No User Found");
-    //   }
-    //   // switch (error.code) {
-    //   //   case "auth/wrong-password":
-    //   //     alert("Invalid Password");
-    //   //     setSnackState({
-    //   //       open: true,
-    //   //       myErrorMessage: "Invalid Password!!!",
-    //   //       vertical: "bottom",
-    //   //       horizontal: "center",
-    //   //       autoHideDuration: 3000,
-    //   //     });
-    //   //     break;
-    //   //   case "auth/user-not-found":
-    //   //     alert("No User found!");
-    //   //     break;
-    //   //   default:
-    //   //     setSnackState({
-    //   //       open: true,
-    //   //       myErrorMessage: error.message,
-    //   //       vertical: "bottom",
-    //   //       horizontal: "center",
-    //   //     });
-    //   //     break;
-    //   // }
-    // }
-
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
   };
-
-  // const { photoURL, setPhotoURL } = useState("");
 
   const SignInWithGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     setCurrentUser(user);
 
-    // console.log(response);
-    // console.log(response.user);
     await createUserDocumentfromAuth(user);
 
-    // console.log(response.user.displayName);
-    // console.log(response.user.email);
-    // console.log(response.user.photoURL);
-    // setPhotoURL(response.user.photoURL);
+    setSnackState({
+      open: true,
+      myErrorMessage: "User Login Successfully",
+      autoHideDuration: 3000,
+      horizontal: "center",
+      vertical: "bottom",
+      horizontal1: "left",
+      variant: "success",
+    });
   };
 
   return (
@@ -182,33 +149,19 @@ const SignIn = () => {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
-        {console.log("render and value is " + {})}
-        {console.log(snackstate)}
-
-        <Stack spacing={2}>
-          <Snackbar
-            open={open}
-            autoHideDuration={autoHideDuration}
-            onClose={handleClose}
-            anchorOrigin={{ vertical, horizontal }}
+        <Snackbar
+          open={open}
+          autoHideDuration={autoHideDuration}
+          onClose={handleClose}
+        >
+          <Alert
+            severity={variant === "error" ? "error" : "success"}
+            color={variant === "error" ? "error" : "success"}
           >
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              This is an error alert — <strong>check it out!</strong>
-            </Alert>
-          </Snackbar>
-
-          <WrappedSnack
-            open={open}
-            autoHideDuration={autoHideDuration}
-            onClose={handleClose}
-          >
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              This is an error alert — <strong>check it out!</strong>
-            </Alert>
-          </WrappedSnack>
-        </Stack>
+            <AlertTitle>{variant}</AlertTitle>
+            {myErrorMessage}
+          </Alert>
+        </Snackbar>
 
         <Box
           sx={{
