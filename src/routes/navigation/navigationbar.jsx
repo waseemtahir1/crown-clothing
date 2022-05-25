@@ -15,7 +15,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ReactComponent as Crown } from "../../assets/crown.svg";
 
 import { UserContext } from "../../contexts/user.context";
-import { signOutUser } from "../../utils/firebase/firebaseutils";
+import UserContextMenu from "./userContextMenu";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -74,14 +74,7 @@ const NavigationBar = () => {
           </nav>
 
           {currentUser ? (
-            <Link
-              variant="outlined"
-              color="secondary"
-              href="/signin"
-              onClick={signOutUser}
-            >
-              Sign Out
-            </Link>
+            <UserContextMenu />
           ) : (
             <Link variant="outlined" color="secondary" href="/signin">
               Sign In
