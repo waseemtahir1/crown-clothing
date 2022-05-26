@@ -19,10 +19,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import {
   signInWithGooglePopup,
   userSignInWithEmailAndPassword,
-  createUserDocumentfromAuth,
 } from "../../utils/firebase/firebaseutils";
-
-import { UserContext } from "../../contexts/user.context";
 
 import { Alert, AlertTitle, Snackbar } from "@mui/material";
 
