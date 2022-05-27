@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ProductsConext } from "../contexts/products.context";
 import { experimentalStyled as styled } from "@mui/material/styles";
+import AddRemoveCartButtons from "../components/AddRemoveCartButtons";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -14,6 +15,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box, margin } from "@mui/system";
@@ -29,14 +31,7 @@ const ViewProducts = () => {
       columns={{ xs: 4, sm: 8, md: 12 }}
     >
       {products.map((items) => (
-        <Grid
-          item
-          xs={2}
-          sm={4}
-          md={2}
-          key={items.id}
-          style={{ content: "center" }}
-        >
+        <Grid item xs={2} sm={4} md={2} key={items.id}>
           <Card sx={{ maxWidth: 345, marginTop: 1 }}>
             <CardHeader
               avatar={
@@ -68,12 +63,23 @@ const ViewProducts = () => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
+              <IconButton
+                aria-label="add to favorites"
+                variant="primary"
+                color="primary"
+                size="small"
+              >
+                <FavoriteBorderOutlinedIcon />
               </IconButton>
-              <IconButton aria-label="share">
+              <IconButton
+                aria-label="share"
+                variant="primary"
+                color="primary"
+                size="small"
+              >
                 <ShareIcon />
               </IconButton>
+              <AddRemoveCartButtons />
             </CardActions>
           </Card>
         </Grid>

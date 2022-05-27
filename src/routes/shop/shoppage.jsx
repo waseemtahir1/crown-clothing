@@ -1,10 +1,12 @@
+import { Box } from "@mui/system";
 import React from "react";
+import ViewProducts from "../../components/ViewProducts";
 
 const ShopPage = () => {
   return (
-    <div>
-      <h1>I am Shop Page</h1>
-    </div>
+    <Box sx={{ marginLeft: 2, marginRight: 2 }}>
+      <ViewProducts />
+    </Box>
   );
 };
 
