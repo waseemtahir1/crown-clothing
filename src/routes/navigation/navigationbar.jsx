@@ -16,6 +16,9 @@ import { ReactComponent as Crown } from "../../assets/crown.svg";
 
 import { UserContext } from "../../contexts/user.context";
 import UserContextMenu from "./userContextMenu";
+import ShoppingCartDropdown from "../../components/ShoppingCartDropdown";
+import CartIcon from "../../components/CartIcon";
+import CartDropdown from "../../components/CartDropdown";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -80,14 +83,7 @@ const NavigationBar = () => {
               Sign In
             </Link>
           )}
-
-          <Link href="/shoppingcart">
-            <IconButton aria-label="cart" sx={{ my: 1, mx: 2 }} color="default">
-              <StyledBadge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
-          </Link>
+          <ShoppingCartDropdown />
         </Toolbar>
       </AppBar>
       <Outlet />

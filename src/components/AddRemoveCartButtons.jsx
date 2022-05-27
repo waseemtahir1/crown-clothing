@@ -30,16 +30,18 @@ const AddRemoveCartButtons = () => {
           color="primary"
           aria-label="add to shopping cart"
           onClick={Decrement}
+          size="small"
         >
           <RemoveShoppingCartIcon />
         </IconButton>
-        <Button variant="outlined" disabled>
+        <Button variant="outlined" disabled size="small">
           {qty}
         </Button>
         <IconButton
           color="primary"
           aria-label="add to shopping cart"
           onClick={Increment}
+          size="small"
         >
           <AddShoppingCartIcon />
         </IconButton>
